@@ -1,4 +1,4 @@
-# EcoLetras — PoC com IA local (sem API paga)
+# EcoLeitura — PoC com IA local (sem API paga)
 
 ## O que o projeto usa
 - **Ollama + Qwen 2.5 3B:** gera textos ambientais localmente, sem chave de API.
@@ -19,7 +19,7 @@ ollama pull qwen2.5:3b
 Aguarde o download do modelo. Para testar, execute `ollama run qwen2.5:3b`. Digite uma pergunta; para sair, digite `/bye`.
 
 ## 2. Abrir a pasta do projeto no terminal
-Entre na pasta onde estão este README e o arquivo `app.py`. Exemplo para este computador:
+Entre na pasta onde estão este README e o arquivo `projeto.py`. Exemplo para este computador:
 
 ```cmd
 cd /d "C:\Users\victo\OneDrive\Área de Trabalho\Projeto IA"
@@ -36,11 +36,11 @@ python -m pip install -r requirements.txt
 
 Se o ambiente virtual já estiver ativo, basta executar a última linha.
 
-## 4. Executar o EcoLetras
+## 4. Executar o EcoLeitura
 Confirme que o Ollama está aberto e execute:
 
 ```cmd
-python app.py
+python projeto.py
 ```
 
 Abra no navegador o endereço local mostrado no terminal, normalmente http://127.0.0.1:7860.
