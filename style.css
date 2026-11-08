@@ -1,0 +1,113 @@
+/* Fonte e fundo externo */
+html,
+body {
+    min-height: 100%;
+    font-family: 'Trebuchet MS', Arial, sans-serif !important;
+    background-color: #d9efce !important;
+}
+
+/* Evita que o fundo padrão do Gradio esconda a floresta */
+gradio-app {
+    background: transparent !important;
+}
+
+.gr-group {
+    background: #FFFFFF !important;
+    border: 2px solid #D1EACB !important;
+    border-radius: 22px !important;
+    padding: 22px !important;
+    box-shadow: 0 5px 15px rgba(45, 100, 55, 0.08) !important;
+}
+
+button.primary {
+    background: #48A85B !important;
+    color: white !important;
+    border-radius: 16px !important;
+    font-weight: bold !important;
+    font-size: 16px !important;
+    border: none !important;
+}
+
+button.primary:hover {
+    background: #348B48 !important;
+    transform: translateY(-2px);
+}
+
+button.secondary {
+    border-radius: 16px !important;
+}
+
+h1, h2, h3 {
+    color: #27633C !important;
+}
+
+/* Cores principais do EcoLeitura */
+:root {
+    --primary-500: #39984d;
+    --primary-600: #287a3c;
+    --primary-700: #206431;
+    --primary-100: #e3f3df;
+    --color-accent: #39984d;
+}
+
+/* Rótulos dos campos */
+.gradio-container label,
+.gradio-container .label-wrap {
+    color: #245c36 !important;
+}
+
+/* Seleção do nível de leitura */
+.gradio-container input[type="radio"] {
+    accent-color: #39984d !important;
+}
+
+/* Opções selecionadas */
+.gradio-container input[type="radio"]:checked + span {
+    color: #245c36 !important;
+}
+
+/* Destaque ao clicar nos campos */
+.gradio-container input:focus,
+.gradio-container textarea:focus,
+.gradio-container select:focus {
+    outline-color: #39984d !important;
+    border-color: #39984d !important;
+}
+
+/* Cor de seleção de texto */
+.gradio-container ::selection {
+    background: #b9e5ae;
+    color: #184a2b;
+}
+
+/* Floresta fixa durante a rolagem */
+html,
+body {
+    background-image: url("/gradio_api/file=imagens/floresta.png") !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+}
+
+/* Painel central */
+.gradio-container {
+    max-width: 1100px !important;
+    margin: 0 auto !important;
+    background: rgba(237, 250, 230, 0.96) !important;
+    border-radius: 24px !important;
+    padding: 28px !important;
+    box-shadow: 0 8px 35px rgba(20, 65, 30, 0.18) !important;
+}
+
+
+@media (max-width: 768px) {
+    .gradio-container {
+        padding: 12px !important;
+        border-radius: 12px !important;
+    }
+
+    body {
+        background-attachment: scroll !important;
+    }
+}
