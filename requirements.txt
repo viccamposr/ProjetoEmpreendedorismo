@@ -1,2 +1,6 @@
-gradio>=5.0
-faster-whisper>=1.0.0
+gradio>=6.0,<7.0
+requests>=2.32.4,<3
+python-dotenv>=1.1,<2
+numpy>=2.0,<3
+scipy>=1.14,<2
+soundfile>=0.13,<1
