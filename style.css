@@ -111,3 +111,61 @@ body {
         background-attachment: scroll !important;
     }
 }
+
+/* Área do mascote e seu balão de fala */
+.area-mascote {
+    align-items: center !important;
+    gap: 24px !important;
+}
+
+/* Imagem do mascote */
+.imagem-mascote {
+    max-width: 190px !important;
+    flex: 0 0 190px !important;
+}
+
+/* Balão de fala */
+.balao-mascote {
+    position: relative !important;
+    background: #ffffff !important;
+    border: 3px solid #48A85B !important;
+    border-radius: 24px !important;
+    padding: 20px 24px !important;
+    box-shadow: 0 5px 15px rgba(45, 100, 55, 0.12) !important;
+    color: #245c36 !important;
+    font-size: 17px !important;
+    line-height: 1.6 !important;
+}
+
+/* Pontinha do balão apontando para o mascote */
+.balao-mascote::before {
+    content: "";
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    width: 24px;
+    height: 24px;
+    background: #ffffff;
+    border-left: 3px solid #48A85B;
+    border-bottom: 3px solid #48A85B;
+    transform: translateY(-50%) rotate(45deg);
+}
+
+/* Adaptação para celular */
+@media (max-width: 768px) {
+    .area-mascote {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    .imagem-mascote {
+        max-width: 160px !important;
+        flex: auto !important;
+    }
+
+    .balao-mascote::before {
+        left: 50%;
+        top: -15px;
+        transform: translateX(-50%) rotate(135deg);
+    }
+}

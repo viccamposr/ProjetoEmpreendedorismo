@@ -462,7 +462,7 @@ def gerar_e_atualizar(tema, nivel, historico):
     return texto, "Texto gerado! Agora leia em voz alta e grave sua leitura."
 
 
-def processar_leitura(audio, texto_original, tema, nivel, historico):
+def processar_leitura(audio, texto_original, tema, nivel, historico, nome_mascote):
     if not texto_original or not texto_original.strip():
         raise gr.Error("Primeiro, gere um texto ambiental.")
 
@@ -486,19 +486,19 @@ def processar_leitura(audio, texto_original, tema, nivel, historico):
     relatorio = f"""
        RELATÓRIO DE LEITURA
 
-        Tema: {tema}  
-        Nível: {nivel}  
-        **Correspondência estimada:** {percentual}%  
+        TEMA: {tema}  
+        NÍVEL: {nivel}  
+        CORRESPONDÊNCIA ESTIMADA: {percentual}%  
 
-        **Feedback:** {mensagem}
+        FEEDBACK: {mensagem}
 
 
-        **Palavras para revisar:**
+        PALAVRAS PARA REVISAR:
 
         {detalhes}
 
-        > Esta porcentagem representa a correspondência aproximada entre as palavras do texto
-        > e a transcrição automática. Ela não comprova a pronúncia correta de cada som.
+        --> Esta porcentagem representa a correspondência aproximada entre as palavras do texto
+        --> e a transcrição automática. Ela não comprova a pronúncia correta de cada som.
     """
     tabela = [
         [
@@ -510,12 +510,22 @@ def processar_leitura(audio, texto_original, tema, nivel, historico):
         ]
         for item in historico
     ]
+    imagem_mascote, mensagem_mascote = reacao_mascote(
+        nome_mascote,
+        percentual
+    )
 
-    return transcricao, relatorio, tabela, historico
+    return ( transcricao, relatorio, tabela, historico,
+        gr.update(
+            value=imagem_mascote,
+            visible=imagem_mascote is not None
+        ),
+        mensagem_mascote
+    )
 
 
 def limpar_atividade():
-    return "", None, "", "", [], []
+    return "", None, "", "", [], [], gr.update(value=None, visible=False), ""
 
 def escolher_mascote(selecao):
     if selecao is None:
@@ -532,6 +542,38 @@ def escolher_mascote(selecao):
     )
 
     return nome, mensagem
+
+def reacao_mascote(nome_mascote, percentual):
+    if not nome_mascote:
+        return None, "Escolha um mascote para acompanhar sua aventura!"
+
+    if percentual >= 80:
+        mensagem = (
+            f"### {nome_mascote} está muito feliz!\n\n"
+            "Parabéns! Você arrasou na leitura! "
+            "Estou muito feliz com seu desempenho!"
+        )
+
+    elif percentual <= 50:
+        mensagem = (
+            f"### {nome_mascote} ficou um pouquinho triste.\n\n"
+            "Ainda precisamos praticar um pouquinho mais. "
+            "Não desista! Eu acredito em você!"
+        )
+
+    else:
+        mensagem = (
+            f"### {nome_mascote} está torcendo por você!\n\n"
+            "Você está indo bem! Continue praticando "
+            "para melhorar ainda mais!"
+        )
+
+    caminho_imagem = os.path.join(
+        PASTA_MASCOTES,
+        f"{nome_mascote.lower()}.png"
+    )
+
+    return caminho_imagem, mensagem
 
 def registrar_selecao(evt: gr.SelectData):
     return evt.index
@@ -670,6 +712,20 @@ with gr.Blocks(
     )
 
     with gr.Group():
+        with gr.Row(elem_classes=["area-mascote"]):
+            imagem_resultado_mascote = gr.Image(
+                show_label=False,
+                height=180,
+                interactive=False,
+                visible=False,
+                container=False,
+                elem_classes=["imagem-mascote"]
+            )
+
+            mensagem_resultado_mascote = gr.Markdown(
+                elem_classes=["balao-mascote"]
+            )
+
         relatorio = gr.Markdown(
             "O resultado da sua missão aparecerá aqui."
         )
@@ -693,7 +749,7 @@ with gr.Blocks(
         """
         ---
         <small>
-        **Aviso:** ferramenta experimental para apoio à alfabetização. O reconhecimento
+        AVISO: ferramenta experimental para apoio à alfabetização. O reconhecimento
         automático pode errar, especialmente com vozes infantis, sotaques e ruídos.
         A atividade deve ser acompanhada por um adulto/educador. O áudio é processado
         durante a atividade e não é salvo por este código.
@@ -709,8 +765,22 @@ with gr.Blocks(
 
     avaliar_btn.click(
         fn=processar_leitura,
-        inputs=[audio, texto_original, tema, nivel, historico_state],
-        outputs=[transcricao, relatorio, tabela_historico, historico_state],
+        inputs=[
+            audio,
+            texto_original,
+            tema,
+            nivel,
+            historico_state,
+            mascote_state
+        ],
+        outputs=[
+            transcricao,
+            relatorio,
+            tabela_historico,
+            historico_state,
+            imagem_resultado_mascote,
+            mensagem_resultado_mascote
+        ],
     )
 
     mascote.select(
@@ -734,6 +804,8 @@ with gr.Blocks(
             relatorio,
             tabela_historico,
             historico_state,
+            imagem_resultado_mascote,
+            mensagem_resultado_mascote
         ],
     )
 
