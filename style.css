@@ -169,3 +169,35 @@ body {
         transform: translateX(-50%) rotate(135deg);
     }
 }
+
+/* Área da transcrição */
+.resultado-transcricao {
+    background: #ffffff;
+    border: 2px solid #d1eacb;
+    border-radius: 16px;
+    padding: 20px;
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+}
+
+.resultado-transcricao strong {
+    color: #245c36;
+    font-size: 17px;
+}
+
+.resultado-transcricao p {
+    font-size: 22px;
+    line-height: 2;
+    margin-top: 12px;
+}
+
+/* Palavras reconhecidas corretamente */
+.palavra-correta {
+    color: #16803c;
+    font-weight: 800;
+}
+
+/* Palavras diferentes do texto esperado */
+.palavra-errada {
+    color: #d62828;
+    font-weight: 800;
+}
